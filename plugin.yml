@@ -1,14 +1,14 @@
 name: SuperVanishV2
 main: ErkamKahriman\Vanish\Vanish
 version: 3.0.0
-author: ErkamKahriman, edited by VMPE Development Team
+author: ErkamKahriman, edited by VMPE Development Team, edited by the Mineceit Development Team
 api: [3.0.0, 4.0.0]
 commands:
-  supervanish:
+  vanish:
     description: "Toggle on/off vanish."
-    aliases: ["sv"]
+    aliases: ["sv", "supervanish"]
 permissions:
-  supervanish.spectate:
+  supervanish.use:
     description: "Permission to vanish yourself."
     default: op
   supervanish.see:
