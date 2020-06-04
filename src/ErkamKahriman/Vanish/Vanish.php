@@ -13,14 +13,14 @@ use pocketmine\command\{Command, CommandSender};
 class Vanish extends PluginBase implements Listener {
 
     const PREFIX = C::BLUE . "§7[" . C::GRAY . "§aSuper§6Vanish§7]" . C::RESET;
-    
+
     private static $instance;
 
     public $vanish = [];
-    
+
     /** @var array|Player[] */
     public static $vanished = [];
-    
+
     public function onEnable() {
         self::$instance = $this;
 
@@ -44,7 +44,7 @@ class Vanish extends PluginBase implements Listener {
      * @param array $args
      * @return bool
      */
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool 
+    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool
     {
         switch($cmd->getLabel()) {
             case "vanish":
@@ -62,6 +62,12 @@ class Vanish extends PluginBase implements Listener {
                         if($sender->hasPermission("supervanish.use")) {
                             unset(self::$vanished[$sender->getName()]);
                             $sender->sendMessage("§c" . "You have been unvanished.");
+                            
+                            foreach(Server::getInstance()->getOnlinePlayers() as $player) {
+                                assert($sender instanceof Player);
+                                $player->showPlayer($sender);
+                            }
+                            
                         }else{
                             $sender->sendMessage("§c" . "Unknown command. Try /help for a list of commands");
                         }
@@ -69,7 +75,7 @@ class Vanish extends PluginBase implements Listener {
                 }
                 break;
         }
-        
+
         return true;
     }
 
@@ -91,7 +97,7 @@ class Vanish extends PluginBase implements Listener {
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        
+
         if(isset(self::$vanished[$name])) {
             $event->setQuitMessage(null);
         }
@@ -100,5 +106,5 @@ class Vanish extends PluginBase implements Listener {
     public function onDisable() {
         $this->getLogger()->info(C::RED . "Plugin disabled.");
     }
-    
+
 }
