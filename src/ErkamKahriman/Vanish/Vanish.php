@@ -61,9 +61,10 @@ class Vanish extends PluginBase implements Listener {
                             foreach(Server::getInstance()->getOnlinePlayers() as $player) {
                                 assert($sender instanceof Player);
 
-                                if($player->hasPermission("supervanish.see")) return false;
-
-                                $player->hidePlayer($sender);
+                                if(!$player->hasPermission("supervanish.see")) {
+                                    $player->hidePlayer($sender)
+                                }
+                                    
                             }
 
                         }else{
