@@ -4,6 +4,10 @@ namespace ErkamKahriman\Vanish;
 
 use pocketmine\scheduler\Task;
 use pocketmine\Server;
+
+use pocketmine\entity\Effect;
+use pocketmine\entity\EffectInstance;
+
 use ErkamKahriman\Vanish\Vanish;
 
 class VanishTask extends Task {
