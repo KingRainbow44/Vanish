@@ -54,18 +54,18 @@ class Vanish extends PluginBase implements Listener {
                             self::$vanished[$sender->getName()] = $sender;
                             $sender->sendMessage("§a" . "You have been vanished.");
                             $sender->sendMessage("§e" . "Note: You will be vanished until you use '/vanish' or until the server reboots.");
-                            
+
                             $sender->getServer()->broadcastMessage("§8" . "[" . "§c" . "-1" . "§8" . "]" . " §c"  . $sender->getName());
                             $sender->getServer()->removePlayerListData($sender->getUniqueId());
-                            
+
                             foreach(Server::getInstance()->getOnlinePlayers() as $player) {
                                 assert($sender instanceof Player);
-                                
-                                if($player->hasPermission("supervanish.see")) return;
-                                
+
+                                if($player->hasPermission("supervanish.see")) return false;
+
                                 $player->hidePlayer($sender);
                             }
-                            
+
                         }else{
                             $sender->sendMessage("§c" . "Unknown command. Try /help for a list of commands");
                         }
@@ -75,14 +75,16 @@ class Vanish extends PluginBase implements Listener {
                             unset(self::$vanished[$sender->getName()]);
                             $sender->sendMessage("§c" . "You have been unvanished.");
                             
+                            assert($sender instanceof Player);
+
                             $sender->getServer()->broadcastMessage("§8" . "[" . "§a" . "+1" . "§8" . "]" . " §a"  . $sender->getName());
                             $sender->getServer()->updatePlayerListData($sender->getUniqueId(), $sender->getId(), $sender->getDisplayName(), $sender->getSkin(), $sender->getXuid());
-                            
+
                             foreach(Server::getInstance()->getOnlinePlayers() as $player) {
                                 assert($sender instanceof Player);
                                 $player->showPlayer($sender);
                             }
-                            
+
                         }else{
                             $sender->sendMessage("§c" . "Unknown command. Try /help for a list of commands");
                         }
