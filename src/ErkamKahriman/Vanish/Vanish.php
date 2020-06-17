@@ -57,6 +57,12 @@ class Vanish extends PluginBase implements Listener {
                             
                             $sender->getServer()->broadcastMessage("§8" . "[" . "§c" . "-1" . "§8" . "]" . " §c"  . $sender->getName());
                             $sender->getServer()->removePlayerListData($sender->getUniqueId());
+                            
+                            foreach(Server::getInstance()->getOnlinePlayers() as $player) {
+                                assert($sender instanceof Player);
+                                $player->hidePlayer($sender);
+                            }
+                            
                         }else{
                             $sender->sendMessage("§c" . "Unknown command. Try /help for a list of commands");
                         }
