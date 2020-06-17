@@ -25,10 +25,12 @@ class VanishTask extends Task {
 
         foreach(Server::getInstance()->getOnlinePlayers() as $player) {
             
-            if($player->isOp()) return;
-            
             foreach($vanished as $vanishedPlayer) {
-                $player->hidePlayer($vanishedPlayer);
+                
+                if(!$player->isOp()) {
+                    $player->hidePlayer($vanishedPlayer);
+                }
+                
                 $vanishedPlayer->getServer()->removePlayerListData($vanishedPlayer->getUniqueId());
                 
                 $vanishedPlayer->addEffect(new EffectInstance(Effect::getEffect(Effect::INVISIBILITY), 20*3, 1, false));
