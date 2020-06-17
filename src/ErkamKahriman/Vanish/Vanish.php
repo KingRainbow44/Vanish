@@ -62,9 +62,9 @@ class Vanish extends PluginBase implements Listener {
                                 assert($sender instanceof Player);
 
                                 if(!$player->hasPermission("supervanish.see")) {
-                                    $player->hidePlayer($sender)
+                                    $player->hidePlayer($sender);
                                 }
-                                    
+
                             }
 
                         }else{
@@ -75,7 +75,7 @@ class Vanish extends PluginBase implements Listener {
                         if($sender->hasPermission("supervanish.use")) {
                             unset(self::$vanished[$sender->getName()]);
                             $sender->sendMessage("§c" . "You have been unvanished.");
-                            
+
                             assert($sender instanceof Player);
 
                             $sender->getServer()->broadcastMessage("§8" . "[" . "§a" . "+1" . "§8" . "]" . " §a"  . $sender->getName());
