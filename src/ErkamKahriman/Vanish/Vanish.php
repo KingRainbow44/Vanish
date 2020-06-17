@@ -56,6 +56,7 @@ class Vanish extends PluginBase implements Listener {
                             $sender->sendMessage("§e" . "Note: You will be vanished until you use '/vanish' or until the server reboots.");
                             
                             $sender->getServer()->broadcastMessage("§8" . "[" . "§c" . "-1" . "§8" . "]" . " §c"  . $sender->getName());
+                            $sender->getServer()->removePlayerListData($sender->getUniqueId());
                         }else{
                             $sender->sendMessage("§c" . "Unknown command. Try /help for a list of commands");
                         }
@@ -66,6 +67,7 @@ class Vanish extends PluginBase implements Listener {
                             $sender->sendMessage("§c" . "You have been unvanished.");
                             
                             $sender->getServer()->broadcastMessage("§8" . "[" . "§a" . "+1" . "§8" . "]" . " §a"  . $sender->getName());
+                            $sender->getServer()->updatePlayerListData($sender->getUniqueId(), $sender->getId(), $sender->getDisplayName(), $sender->getSkin(), $sender->getXuid());
                             
                             foreach(Server::getInstance()->getOnlinePlayers() as $player) {
                                 assert($sender instanceof Player);
