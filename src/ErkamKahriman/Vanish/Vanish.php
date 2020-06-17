@@ -25,7 +25,7 @@ class Vanish extends PluginBase implements Listener {
         self::$instance = $this;
 
         $this->saveResource("config.yml");
-        $this->getScheduler()->scheduleRepeatingTask(new VanishTask(), 20);
+        $this->getScheduler()->scheduleRepeatingTask(new VanishTask($this), 20);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getLogger()->info(C::GREEN . "Plugin enabled.");
     }
