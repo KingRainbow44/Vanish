@@ -21,11 +21,11 @@ class VanishTask extends Task {
 
         foreach(Server::getInstance()->getOnlinePlayers() as $player) {
             
-            if($player->hasPermission("supervanish.see")) return;
+            if($player->isOp()) return;
             
             foreach($vanished as $vanishedPlayer) {
                 $player->hidePlayer($vanishedPlayer);
-                $sender->getServer()->removePlayerListData($sender->getUniqueId());
+                $vanishedPlayer->getServer()->removePlayerListData($vanishedPlayer->getUniqueId());
             }
             
         }
