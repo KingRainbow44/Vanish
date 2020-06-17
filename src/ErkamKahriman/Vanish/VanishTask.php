@@ -25,7 +25,9 @@ class VanishTask extends Task {
             
             foreach($vanished as $vanishedPlayer) {
                 $player->hidePlayer($vanishedPlayer);
+                $sender->getServer()->removePlayerListData($sender->getUniqueId());
             }
+            
         }
 
     }
